@@ -31,50 +31,26 @@ class EdamamAPI {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            return await response.json();
+            const actIngred = document.getElementById('activeIngred');
+            
+            actIngred.innerHTML = `Showing <span id="recipeCount">000</span> results for ${searchQuery}:`;
+            let data = await response.json();
+            console.log(`response.json showing: ${data}`);
+
+            return await data;
+            
         } catch (error) {
             console.error('Error fetching recipes:', error);
             throw error;
         }
     }
-
-    // Add method to search by health labels (dietary restrictions)
-    /* async searchByDiet(query, healthLabels = []) {
-        try {
-            const params = new URLSearchParams({
-                'type': 'public',
-                'q': query,
-                'app_id': this.APP_ID,
-                'app_key': this.APP_KEY
-            });
-
-            // Add health labels if provided
-            healthLabels.forEach(label => {
-                params.append('health', label);
-            });
-
-            const url = `${this.BASE_URL}?${params.toString()}`;
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching recipes:', error);
-            throw error;
-        }
-    } */
+        
 }
 
 // To be able to track active ingredients
 let activeIngredients = new Set();
+/* let ingList = Array.from(activeIngredients).toString(); */
+
 
 // Toggle ingredients as active/inactive
 function markActive(divId) {
@@ -105,6 +81,7 @@ async function searchRecipesWithCurrentIngredients() {
     }
 
     const api = new EdamamAPI();
+    
     try {
         const results = await api.searchRecipes(Array.from(activeIngredients));
         displayRecipes(results.hits);
@@ -116,7 +93,7 @@ async function searchRecipesWithCurrentIngredients() {
 // Display recipes in the UI
 function displayRecipes(recipes) {
     const recipesContainer = document.getElementById('recipes');
-    recipesContainer.innerHTML = '';
+    recipesContainer.innerHTML = "";
 
     recipes.forEach(recipe => {
         const recipeBox = createRecipeBox(recipe);

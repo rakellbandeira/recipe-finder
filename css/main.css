@@ -282,6 +282,12 @@ body {
 
   /* RIGHT AREA ACTIVATED FOR NOW */
 
+  #result-info{
+    display: block;
+    border: solid red 2px;
+    color: black;
+  }
+
   .right-area{
 
     display: grid;

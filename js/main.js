@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', async () => {
     const edamamAPI = new EdamamAPI();
     const foodFactsAPI = new OpenFoodFactsAPI();
@@ -6,8 +5,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Test Edamam API
     try {
         console.log('Testing Edamam API...');
-        const recipes = await edamamAPI.searchRecipes("pizza");
+        const recipes = await edamamAPI.searchRecipes("");
         console.log('Edamam recipes:', recipes);
+        
     } catch (error) {
         console.error('Edamam API error:', error);
     }
