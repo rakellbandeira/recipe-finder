@@ -11,15 +11,144 @@
     <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
-    <header>
-        <h1>Recipe Finder</h1>
-        <div id="search-container"></div>
-    </header>
-
-    <main>
-        <section id="filters"></section>
-        <section id="recipes-container"></section>
-    </main>
+    <div class="container">
+    
+        <nav class="left-area">
+          <div class="menu">
+            <div class="menu-option" id="home-option" onclick="toggleDisplay('recipe-area')">
+              <img src="./assets/images/home-icon.png" alt="Home">
+              <span>Home</span>
+            </div>
+            
+            <div class="menu-option" id="pantry-option" onclick="toggleDisplay('pantry')">
+              <img src="./assets/images/fridge-icon.png" alt="My Pantry">
+              <span>My Pantry</span>
+              
+            </div>
+          </div>
+    
+          
+        </nav>
+    
+        
+    
+        <div class="main">  
+          
+          <!-- <div class="activemenu" id="pantry"> -->
+            <div class="pantry" >
+              <div class="pantry-area">
+        
+                <!-- <div id="search-bar">
+                  <input type="text" id="ingredient-input" placeholder="Enter ingredient">
+                  <button id="search-btn">Search</button>
+                </div> -->
+    
+                  <div class="pantry-boxcontainer">
+        
+                  <div class="pantry-box" id="collapsible">
+                    <div class="pantry-title" onclick="toggleCollapsible()">
+    
+                      <!-- <span>></span>   -->              
+                      <picture>
+                        <img src="./assets/images/pantry/Allcuisines.png">
+                      </picture>
+                      <!-- <div class="arrow"></div> -->
+    
+                      <div class="pantry-box-title">
+                        <h2 >Pantry Essentials</h2>
+                        <!-- <div class="pantry-box-title-info">
+                          <h4>0</h4>
+                          <h4>/40 Ingredients</h4> 
+                        </div> -->    
+                      </div>         
+                    </div>
+                    <ul class="pantry-content">
+                      <li class="inactive" id="div1" onclick="markActive('div1')">butter</li>
+                      <li class="inactive" id="div2" onclick="markActive('div2')">egg</li>
+                      <li class="inactive" id="div3" onclick="markActive('div3')">garlic</li>
+                      <li class="inactive" id="div4" onclick="markActive('div4')">milk</li>
+                      <li class="inactive" id="div5" onclick="markActive('div5')">onion</li>
+                      <li class="inactive" id="div6" onclick="markActive('div6')">sugar</li>
+                      <li class="inactive" id="div7" onclick="markActive('div7')">flour</li>
+                      <li class="inactive" id="div8" onclick="markActive('div8')">olive oil</li>
+                      <li class="inactive" id="div9" onclick="markActive('div9')">rice</li>
+                      <li class="inactive" id="div10" onclick="markActive('div10')">cinnamon</li>
+                      <li class="inactive" id="div11" onclick="markActive('div11')">ketchup</li>
+                      <li class="inactive" id="div12" onclick="markActive('div12')">soy sauce</li>
+                      <li class="inactive" id="div13" onclick="markActive('div13')">mayonnaise</li>
+                      <li class="inactive" id="div14" onclick="markActive('div14')">bread</li>
+                      <li class="inactive" id="div15" onclick="markActive('div15')">baking powder</li>
+                      <li class="inactive" id="div16" onclick="markActive('div16')">brown sugar</li>
+                    </ul>
+                  </div>
+        
+                  <div class="pantry-box">
+                    <div class="pantry-title">
+                      <picture>
+                        <img src="./assets/images/pantry/vegetables.png">
+                      </picture>
+                      <div class="pantry-box-title">
+                        <h2 >Vegetables</h2>
+                        <!-- <div class="pantry-box-title-info">
+                          <h4>0</h4>
+                          <h4>/40 Ingredients</h4> 
+                        </div> -->    
+                      </div>         
+                    </div>
+                    <ul class="pantry-content">
+                      <li class="inactive" id="div17" onclick="markActive('div17')">carrot</li>
+                      <li class="inactive" id="div18" onclick="markActive('div18')">tomato</li>
+                      <li class="inactive" id="div19" onclick="markActive('div19')">scallion</li>
+                      <li class="inactive" id="div20" onclick="markActive('div20')">jalapeno</li>
+                      <li class="inactive" id="div21" onclick="markActive('div21')">avocado</li>
+                      <li class="inactive" id="div22" onclick="markActive('div22')">cabbage</li>
+    
+                    </ul>
+                  </div>
+                </div>
+        
+              </div>      
+            </div>
+          <!-- </div> -->
+          <!-- <div class="activemenu" id="recipe-area"> -->
+            <div class="right-area" class="recipe-display">
+    
+              <div class="display-title">
+                <h1>Recipe Wizard</h1>
+                <h3>Your fastest recipe finder</h3>
+              </div>
+    
+              <div class="display-area" id="recipes">
+    
+                <!-- <div class="resultJavascript"></div> -->
+                <!-- 
+    
+                <a href="/recipe-page.html">
+                  <div class="recipe-box">
+                    <picture>
+                      <img src="/imgs/recipes/216119-t.jpg" alt="">
+                    </picture>
+                    <div class="recipe-box-info">
+                      <div class="recipe-box-info-title">
+                        <h3>How to Make Ghee from butter</h3>
+                        <h5 class="recipe-url">werecipes.com</h5>
+                      </div>
+                      <div class="recipe-box-info-ingredients">
+                        <h5>You have all</h5>
+                        <h5 class="amount-active-ingredients"> * </h5>
+                        <h5>ingredients</h5>
+                      </div>
+                    </div>
+                  </div>
+                </a> -->
+    
+                
+              </div>
+    
+            </div>
+          <!-- </div> -->
+        </div>
+      </div>
 
     <!-- JavaScript Files -->
     <!-- APIs -->

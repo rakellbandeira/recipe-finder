@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Test Edamam API
     try {
-        const edamamAPI = new EdamamAPI();
         console.log('Testing Edamam API...');
         const recipes = await edamamAPI.searchRecipes("pizza");
         console.log('Edamam recipes:', recipes);
