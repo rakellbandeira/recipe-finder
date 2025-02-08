@@ -5,17 +5,28 @@ class EdamamAPI {
         this.BASE_URL = 'https://api.edamam.com/api/recipes/v2';
     }
 
+    // This gets the search query, insert it into the URL, fetches the data linked to that URL and returns it in JSON format
     async searchRecipes(searchQuery) {
         try {
+            //This see if the search query is a single string or an array. In case of array, it joins them with space between making it a big string?
             const queryString = Array.isArray(searchQuery) ? searchQuery.join(' ') : searchQuery;
+            console.log(queryString);
+            
+            //This gets the parameters to construct the URL, like q, appID and appKEY
             const params = new URLSearchParams({
             'type': 'public',
             'q': queryString,
             'app_id': this.APP_ID,
             'app_key': this.APP_KEY,
         });
-
+            // Here we have the params turned to a string like: 'type=public&q=garlic&app_id=fcffd402&app_key=4dfd9942135ff68fa4d1cddb07d67074'
+            //console.log(params.toString());
+            
+            //This adds the params turned to a string to the base URL like this: 'https://api.edamam.com/api/recipes/v2?type=public&q=garlic&app_id=fcffd402&app_key=4dfd9942135ff68fa4d1cddb07d67074'
             const url = `${this.BASE_URL}?${params.toString()}`;
+
+            //console.log(url);
+            
             
             const response = await fetch(url, {
                 method: 'GET',
@@ -49,7 +60,7 @@ class EdamamAPI {
 
 // To be able to track active ingredients
 let activeIngredients = new Set();
-/* let ingList = Array.from(activeIngredients).toString(); */
+
 
 
 // Toggle ingredients as active/inactive
@@ -74,23 +85,40 @@ function markActive(divId) {
 
 // Search recipes with current ingredients
 async function searchRecipesWithCurrentIngredients() {
+
+    //THis checks if there is no ingredient selected and blanks the body
     if (activeIngredients.size === 0) {
         // Clear recipes if no ingredients selected
         document.getElementById('recipes').innerHTML = '';
+
         return;
     }
 
     const api = new EdamamAPI();
     
+    //That stored an instance of API class and this is is going to get the function, pass the ingredient set (transformed to an array) to get the data in JSON
     try {
         const results = await api.searchRecipes(Array.from(activeIngredients));
+
+        let countRecipes = results.hits.length;
+
+        const recipeCount = document.getElementById('recipeCount');
+        recipeCount.textContent = countRecipes;
+        //console.log(`This is the length of the result: ${countRecipes}`);
+
+    
+        
+        //This takes the JSON data and for each element, it creates a recipe card and appends it to the body.
+        console.log(results.hits);
+        
         displayRecipes(results.hits);
     } catch (error) {
         console.error('Error searching recipes:', error);
     }
+
 }
 
-// Display recipes in the UI
+// Gets
 function displayRecipes(recipes) {
     const recipesContainer = document.getElementById('recipes');
     recipesContainer.innerHTML = "";
@@ -146,8 +174,9 @@ function countMatchingIngredients(recipeIngredients) {
 }
 
 // Toggle collapsible sections
-function toggleCollapsible() {
-    const content = document.querySelector('.pantry-content');
+function toggleCollapsible(number) {
+    
+    const content = document.querySelector(number);
     content.style.display = content.style.display === 'none' ? 'block' : 'none';
 }
 

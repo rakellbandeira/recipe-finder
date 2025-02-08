@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Test Edamam API
     try {
-        console.log('Testing Edamam API...');
+        //console.log('Testing Edamam API...');
         const recipes = await edamamAPI.searchRecipes("");
-        console.log('Edamam recipes:', recipes);
+        //console.log('Edamam recipes:', recipes);
         
     } catch (error) {
         console.error('Edamam API error:', error);
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Test OpenFoodFacts API
     try {
         const ingredientInfo = await foodFactsAPI.getIngredientInfo('banana');
-        console.log('OpenFoodFacts info:', ingredientInfo);
+        //console.log('OpenFoodFacts info:', ingredientInfo);
     } catch (error) {
         console.error('OpenFoodFacts API error:', error);
     }

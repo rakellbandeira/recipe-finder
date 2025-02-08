@@ -45,10 +45,8 @@
     
                   <div class="pantry-boxcontainer">
         
-                  <div class="pantry-box" id="collapsible">
-                    <div class="pantry-title" onclick="toggleCollapsible()">
-    
-                      <!-- <span>></span>   -->              
+                  <div class="pantry-box">
+                    <div class="pantry-title" onclick="toggleCollapsible('#one')">          
                       <picture>
                         <img src="./assets/images/pantry/Allcuisines.png">
                       </picture>
@@ -62,7 +60,7 @@
                         </div> -->    
                       </div>         
                     </div>
-                    <ul class="pantry-content">
+                    <ul class="pantry-content" id="one">
                       <li class="inactive" id="div1" onclick="markActive('div1')">butter</li>
                       <li class="inactive" id="div2" onclick="markActive('div2')">egg</li>
                       <li class="inactive" id="div3" onclick="markActive('div3')">garlic</li>
@@ -83,7 +81,7 @@
                   </div>
         
                   <div class="pantry-box">
-                    <div class="pantry-title">
+                    <div class="pantry-title" onclick="toggleCollapsible('#two')">
                       <picture>
                         <img src="./assets/images/pantry/vegetables.png">
                       </picture>
@@ -95,7 +93,7 @@
                         </div> -->    
                       </div>         
                     </div>
-                    <ul class="pantry-content">
+                    <ul class="pantry-content" id="two">
                       <li class="inactive" id="div17" onclick="markActive('div17')">carrot</li>
                       <li class="inactive" id="div18" onclick="markActive('div18')">tomato</li>
                       <li class="inactive" id="div19" onclick="markActive('div19')">scallion</li>
