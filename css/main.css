@@ -12,6 +12,72 @@ body {
     background-color: var(--background-color);
 }
 
+header{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  height: 120px;
+  width: 100%;
+  justify-content: space-around;
+
+  background-color: #386641;
+
+/*   border: solid 2px red;
+ */}
+
+.header-title {
+  display: flex;
+  flex-direction: row;
+  justify-self: center;
+  align-items: center;
+  color: white;
+}
+
+.header-title h1{
+  margin-right: 10px;
+}
+
+
+
+footer{
+  display: flex;
+  justify-content: center;
+  height: 100px;
+
+  background-color: var(--text-color);
+  color: white;
+}
+
+/* .display-title{
+  display: grid;
+  
+  grid-row: 1/2;
+  grid-column: 1/2;
+  
+  justify-items: center;
+
+  background-color: #386641;  
+  color: white;   
+
+  padding: 20px 0px;      
+  
+
+}
+
+.display-title h1,h3{
+  padding: 0px;
+  margin: 0px;
+  display: inline;
+}
+
+.display-title h1{
+  font-size: 1.8rem;
+  padding-top: 15px;
+}
+
+.display-title h3{
+  font-size: 1rem;
+}
+ */
 /* Add these to your existing styles */
 
 .recipe-box {
@@ -301,7 +367,7 @@ body {
     /* overflow-x: hidden; */
   }    
 
-      .display-title{
+      /* .display-title{
         display: grid;
         
         grid-row: 1/2;
@@ -330,7 +396,7 @@ body {
 
       .display-title h3{
         font-size: 1rem;
-      }
+      } */
 
 
       .display-area{
@@ -510,7 +576,8 @@ body {
     } */
 
     .pantry{
-      grid-row: 2/3;
+      grid-row-start: 1;
+      grid-row-end: 4;
       grid-column: 1/2;
       display:grid;
       position: relative;
@@ -624,7 +691,7 @@ body {
       overflow-x: hidden;
     }    
 
-        .display-title{
+        /* .display-title{
           display: grid;
           
           grid-row: 1/2;
@@ -652,7 +719,7 @@ body {
 
         .display-title h3{
           font-size: 1rem;
-        }
+        } */
 
 
         .display-area{
@@ -814,16 +881,13 @@ nav ul li a:hover {
     background-color: #efefef;
     color: black;
 }
-
+/* 
 h1,
 h2 {
     text-align: center;
     margin: 1rem 0 .5rem;
-}
+} */
 
-h1 {
-    border-bottom: 1px solid #ccc;
-}
 
 #gridly h1 {
     margin-top: 80px;
@@ -836,14 +900,14 @@ h2 {
     margin-top: 25px;
 }
 
-h3 {
+/* h3 {
     font-size: 1.3rem;
     margin-bottom: 1rem;
-}
-
+} */
+/* 
 header {
     margin-top: 70px;
-}
+} */
 
 picture {
     margin: 0 auto;

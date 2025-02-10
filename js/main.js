@@ -19,4 +19,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error('OpenFoodFacts API error:', error);
     }
+
+    loadHeaderAndFooter();
 });
+
+async function loadHeaderAndFooter() {
+    const headerResponse = await fetch ("../js/public/header.html");
+    const headerHtml = await headerResponse.text();
+    document.body.insertAdjacentHTML('afterbegin', headerHtml);
+
+    const footerResponse = await fetch ("../js/public/footer.html");
+    const footerHtml = await footerResponse.text();
+    document.body.insertAdjacentHTML('beforeend', footerHtml);
+}
