@@ -1,6 +1,9 @@
 :root {
-    --primary-color: #4CAF50;
-    --secondary-color: #45a049;
+    --primary-color: #416d4a;
+    --secondary-color: #b2914f;
+    --neutraltone1: #f1e7ce;
+    --neutraltone2: #709074;
+    --highlight: rgb(165,19,80);
     --text-color: #333;
     --background-color: #f4f4f4;
 }
@@ -943,7 +946,7 @@ footer{
   padding: 20px;
   position: fixed;
   bottom: 0;
-  background-color: var(--background-color);
+  background-color: var(--primary-color);
   color: black;
 }
 
