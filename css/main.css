@@ -477,7 +477,8 @@ body {
   transform: translateX(0);
 }
       .pantry-area{
-        width: 100%;
+        margin-top: 40px;
+        width: 90%;
       }
 
       .search-result{
