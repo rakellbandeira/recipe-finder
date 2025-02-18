@@ -330,7 +330,7 @@ footer{
 }
 
 .pantry-content li.inactive {
-    background-color: transparent;
+    background-color: #FAEBD7;
 }
 
 .pantry-content li:hover {
@@ -496,10 +496,13 @@ body {
       .pantry-box{
         display: flex;
         flex-direction: column;
-        padding: 30px;
+        padding: 20px;
 
         overflow: hidden;
         transition: width 0.3s ease-in-out;
+        background-color: #b2914f20;
+        margin-bottom: 20px;
+        border-radius: 38px;
 
       }
 
