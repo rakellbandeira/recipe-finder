@@ -42,10 +42,12 @@ class EdamamAPI {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
+            const data = await response.json();
             const actIngred = document.getElementById('activeIngred');
+            if (actIngred) {
+                actIngred.innerHTML = `Showing <span id="recipeCount">0</span> results for ${searchQuery}:`;
+            }            
             
-            actIngred.innerHTML = `Showing <span id="recipeCount">000</span> results for ${searchQuery}:`;
-            let data = await response.json();
             console.log(`response.json showing: ${data}`);
 
             return await data;
@@ -134,30 +136,70 @@ function displayRecipes(recipes) {
 function createRecipeBox(recipeData) {
     const { recipe } = recipeData;
     
-    const recipeLink = document.createElement('a');
-    recipeLink.href = recipe.url;
-    recipeLink.target = "_blank";
+    const recipeLink = document.createElement('div');
+    recipeLink.className = 'recipe-box-container'; 
 
     recipeLink.innerHTML = `
         <div class="recipe-box">
-            <picture>
-                <img src="${recipe.image}" alt="${recipe.label}">
-            </picture>
-            <div class="recipe-box-info">
-                <div class="recipe-box-info-title">
-                    <h3>${recipe.label}</h3>
-                    <h5 class="recipe-url">${recipe.source}</h5>
+            <a href="${recipe.url}" target="_blank" class="recipe-link">
+                <picture>
+                    <img src="${recipe.image}" alt="${recipe.label}">
+                </picture>
+                <div class="recipe-box-info">
+                    <div class="recipe-box-info-title">
+                        <h3>${recipe.label}</h3>
+                        <h5 class="recipe-url">${recipe.source}</h5>
+                    </div>
+                    <div class="recipe-box-info-ingredients">
+                        <h5>You have</h5>
+                        <h5 class="amount-active-ingredients">${countMatchingIngredients(recipe.ingredientLines)}</h5>
+                        <h5>ingredients</h5>
+                    </div>
                 </div>
-                <div class="recipe-box-info-ingredients">
-                    <h5>You have</h5>
-                    <h5 class="amount-active-ingredients">${countMatchingIngredients(recipe.ingredientLines)}</h5>
-                    <h5>ingredients</h5>
-                </div>
-            </div>
+            </a>
+                <button class="favorite-btn" onclick="toggleFavorite(event, this, '${recipe.url}')"> 
+                       
+                    <img src="./assets/images/hearts1.png" alt="favorite" width="24">
+                </button>
+            
         </div>
     `;
 
     return recipeLink;
+}
+
+function isFavorite(recipe) {
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    return favorites.some(f => f.url === recipe.url);
+}
+
+function toggleFavorite(event, button, recipeUrl) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const recipeBox = button.closest('.recipe-box');
+    const recipeData = {
+        url: recipeUrl,
+        image: recipeBox.querySelector('picture img').src,
+        label: recipeBox.querySelector('h3').textContent,
+        source: recipeBox.querySelector('.recipe-url').textContent,
+        ingredientLines: [] // You might want to store this too
+    };
+    
+    const index = favorites.findIndex(f => f.url === recipeUrl);
+    
+    if (index === -1) {
+        // Add to favorites
+        favorites.push(recipeData);
+        button.querySelector('img').src = './assets/images/hearts1.png';
+    } else {
+        // Remove from favorites
+        favorites.splice(index, 1);
+        button.querySelector('img').src = './assets/images/hearts2.png';
+    }
+    
+    localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
 // Count how many ingredients the user has
@@ -175,7 +217,6 @@ function countMatchingIngredients(recipeIngredients) {
 
 // Toggle collapsible sections
 function toggleCollapsible(number) {
-    
     const content = document.querySelector(number);
     content.style.display = content.style.display === 'none' ? 'block' : 'none';
 }
