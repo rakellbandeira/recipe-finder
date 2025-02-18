@@ -149,7 +149,12 @@ footer{
   border: none;
   cursor: pointer;
   padding: 8px;
+  margin: auto 20px;
   
+}
+
+.favorites-toggle p {
+  margin: 0;
 }
 
 .favorites-toggle:hover {
@@ -566,9 +571,9 @@ body {
   /* RIGHT AREA ACTIVATED FOR NOW */
 
   #result-info{
+   font-size: 1.2rem;
    
-  
-    color: black;
+    color: rgb(118, 118, 118);
   }
 
   .right-area{
@@ -576,18 +581,8 @@ body {
     padding: 15px;
     margin-bottom: 60px;
     overflow-y: auto;
-    /* display: grid;
-    position: absolute;
-    top: 0px;
-      
-
-    grid-template-columns: 1fr;
-    grid-template-rows: 950px auto;
- */
-
-
-
-    /* overflow-x: hidden; */
+    top: 40px;
+    position: relative;
   }  
   
   .recipes-grid {
@@ -596,37 +591,9 @@ body {
     gap: 20px;
 }
 
-      /* .display-title{
-        display: grid;
-        
-        grid-row: 1/2;
-        grid-column: 1/2;
-        
-        justify-items: center;
-
-        background-color: #386641;  
-        color: white;   
-
-        padding: 20px 0px;      
-        
-
-      }
-
-      .display-title h1,h3{
-        padding: 0px;
-        margin: 0px;
-        display: inline;
-      }
-
-      .display-title h1{
-        font-size: 1.8rem;
-        padding-top: 15px;
-      }
-
-      .display-title h3{
-        font-size: 1rem;
-      } */
-
+.display-title{
+  margin-left: 40px;
+}
 
       .display-area{
 
@@ -724,16 +691,18 @@ body {
 
 /* Navigation Bar */
 .mobile-nav {
+  
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  min-height: 100px;
   background-color: #386641;
   display: flex;
   justify-content: space-around;
   align-items: center;
   z-index: 1000;
+  padding-bottom: 20px;
 }
 
 .nav-item {
@@ -745,9 +714,10 @@ body {
   padding: 8px;
 }
 
+
 .nav-item span {
   color: white;
-  font-size: 12px;
+  
 }
 
 .nav-item.active {
@@ -762,13 +732,13 @@ body {
 }
 
 .nav-item img {
-  width: 24px;
-  height: 24px;
+  width: auto;
+  height: 40px;
   margin-bottom: 4px;
 }
 
 .nav-item span {
-  font-size: 12px;
+  font-size: 1rem;
 }
 
 
@@ -891,7 +861,7 @@ body {
 .favorites-toggle {
   display: flex;
   gap: 10px;
-  max-width: 130px;
+  max-width: 150px;
   height: 40px;
   color:white;
   align-items: center;
