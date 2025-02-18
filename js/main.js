@@ -1,47 +1,3 @@
-/* const headerTemplate = `
-    <header>
-    
-        <div class="left-area">
-          <div class="menu">
-            <div class="menu-option" id="home-option" onclick="toggleDisplay('recipe-area')">
-              <img src="./assets/images/home-icon.png" alt="Home">
-              <span>Home</span>
-            </div>
-            
-            <div class="menu-option" id="pantry-option" onclick="toggleDisplay('pantry')">
-              <img src="./assets/images/fridge-icon.png" alt="My Pantry">
-              <span>My Pantry</span>
-              
-            </div>
-          </div>
-    
-          
-        </div>
-        <div class="header-title">       
-          <div class="title">
-            <img src="./assets/images/logo/logo.png" alt="Logo" width="80">
-            <h1 class="title-logo">My Pantry</h1><span>|</span>
-            <h3>Your fastest recipe finder</h3>
-          </div>
-
-          <div class="favoritesButton">
-            <a><img src="./assets/images/1.png" alt="heart" width="40" ><p id="favoritesButtonText" >See Favorites</p></a>
-          </div>
-        </div>
-
-    
-</header>
-`;
-
-const footerTemplate = `
-    <footer>
-    <p>WDD 330: Web Frontend Development II - Final Project</p>
-    <p>Rakell Bandeira - 2025</p>
-</footer>
-`;
- */
-
-
 document.addEventListener('DOMContentLoaded', async () => {
     const edamamAPI = new EdamamAPI();
     const foodFactsAPI = new OpenFoodFactsAPI();
@@ -49,37 +5,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       const categoryManager = new CategoryManager();
       const favoritesManager = new FavoritesManager();
       
-      // Initialize mobile navigation if needed
-     /*  if (window.innerWidth < 992) {
-          initializeMobileNav();
-      }
- */
       setupPantryToggle();
+      setupHomeButton();
 
   } catch (error) {
       console.error('Initialization error:', error);
   }
 
-
-    // Test Edamam API
-    try {
-        //console.log('Testing Edamam API...');
-        const recipes = await edamamAPI.searchRecipes("");
-        //console.log('Edamam recipes:', recipes);
-        
-    } catch (error) {
-        console.error('Edamam API error:', error);
-    }
-
-    // Test OpenFoodFacts API
-    try {
-        const ingredientInfo = await foodFactsAPI.getIngredientInfo('banana');
-        //console.log('OpenFoodFacts info:', ingredientInfo);
-    } catch (error) {
-        console.error('OpenFoodFacts API error:', error);
-    }
-
-    
+   
     if (window.innerWidth < 992) {
       const pantry = document.querySelector('.pantry');
       const toggleButton = document.createElement('button');
@@ -139,32 +72,73 @@ function handleViewportChange(e) {
 function toggleFavoritesView() {
   const recipesContainer = document.getElementById('recipes');
   const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-
-   
-
   
-  if (recipesContainer.dataset.view === 'favorites') {
-      // Switch back to regular view
-      recipesContainer.dataset.view = 'regular';
+  recipesContainer.innerHTML = '';
+  
+  if (favorites.length === 0) {
+      recipesContainer.innerHTML = '<p class="no-favorites">No favorite recipes yet</p>';
+      return;
+  }
+  
+  favorites.forEach(recipe => {
+      const recipeBox = createRecipeBox({ recipe });
+      recipesContainer.appendChild(recipeBox);
+  });
+}
+
+
+
+function setupHomeButton() {
+  // Setup mobile home button
+  const mobileHomeBtn = document.querySelector('.nav-item[data-view="home"]');
+  if (mobileHomeBtn) {
+      mobileHomeBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          returnToHome();
+      });
+  }
+
+  // Setup desktop logo home button
+  const logoTitle = document.querySelector('.logo-title');
+  if (logoTitle) {
+      logoTitle.style.cursor = 'pointer';
+      logoTitle.addEventListener('click', returnToHome);
+  }
+}
+
+function returnToHome() {
+  // Close pantry if open
+  const pantryPanel = document.querySelector('.pantry');
+  if (pantryPanel.classList.contains('show')) {
+      pantryPanel.classList.remove('show');
+      const pantryButton = document.querySelector('.nav-item[data-view="pantry"]');
+      if (pantryButton) {
+          pantryButton.classList.remove('active');
+      }
+  }
+
+  // Remove active state from all nav items
+  document.querySelectorAll('.nav-item').forEach(item => {
+      item.classList.remove('active');
+  });
+
+  // Set home button as active in mobile view
+  const homeButton = document.querySelector('.nav-item[data-view="home"]');
+  if (homeButton && window.innerWidth <= 992) {
+      homeButton.classList.add('active');
+  }
+
+  // Return to recipe view if ingredients are selected
+  const recipesContainer = document.getElementById('recipes');
+  recipesContainer.dataset.view = 'regular';
+
+  if (activeIngredients.size > 0) {
       searchRecipesWithCurrentIngredients();
   } else {
-      // Show favorites
-      recipesContainer.dataset.view = 'favorites';
       recipesContainer.innerHTML = '';
-
-      if (favorites.length === 0) {
-          recipesContainer.innerHTML = '<p class="no-favorites">No favorite recipes yet</p>';
-      } else {
-          
-          favorites.forEach(recipe => {
-               const recipeBox = createRecipeBox({ recipe });
-        // Set favorite button to active state for favorites view
-        const favBtn = recipeBox.querySelector('.favorite-btn img');
-        if (favBtn) {
-            favBtn.src = './assets/images/heart1.png';
-        }
-        recipesContainer.appendChild(recipeBox);
-          });
+      const actIngred = document.getElementById('activeIngred');
+      if (actIngred) {
+          actIngred.innerHTML = 'Select ingredients to find recipes';
       }
   }
 }

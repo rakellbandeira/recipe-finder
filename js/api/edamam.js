@@ -132,12 +132,23 @@ function displayRecipes(recipes) {
 }
 
 
-// Create recipe box element
 function createRecipeBox(recipeData) {
     const { recipe } = recipeData;
     
     const recipeLink = document.createElement('div');
     recipeLink.className = 'recipe-box-container'; 
+
+    // Create a simplified version of the recipe data
+    const simplifiedRecipe = {
+        url: recipe.url,
+        image: recipe.image,
+        label: recipe.label,
+        source: recipe.source,
+        ingredientLines: recipe.ingredientLines
+    };
+
+    // Store the recipe data as a data attribute
+    recipeLink.dataset.recipe = JSON.stringify(simplifiedRecipe);
 
     recipeLink.innerHTML = `
         <div class="recipe-box">
@@ -157,11 +168,9 @@ function createRecipeBox(recipeData) {
                     </div>
                 </div>
             </a>
-                <button class="favorite-btn" onclick="toggleFavorite(event, this, '${recipe.url}')"> 
-                       
-                    <img src="./assets/images/hearts1.png" alt="favorite" width="24">
-                </button>
-            
+            <button class="favorite-btn" onclick="toggleFavorite(event, this)">
+                <img src="./assets/images/5.png" alt="favorite" width="24">
+            </button>
         </div>
     `;
 
@@ -173,30 +182,25 @@ function isFavorite(recipe) {
     return favorites.some(f => f.url === recipe.url);
 }
 
-function toggleFavorite(event, button, recipeUrl) {
+function toggleFavorite(event, button) {
     event.preventDefault();
     event.stopPropagation();
     
-    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    const recipeBox = button.closest('.recipe-box');
-    const recipeData = {
-        url: recipeUrl,
-        image: recipeBox.querySelector('picture img').src,
-        label: recipeBox.querySelector('h3').textContent,
-        source: recipeBox.querySelector('.recipe-url').textContent,
-        ingredientLines: [] // You might want to store this too
-    };
+    // Get recipe data from the parent container
+    const recipeContainer = button.closest('.recipe-box-container');
+    const recipeData = JSON.parse(recipeContainer.dataset.recipe);
     
-    const index = favorites.findIndex(f => f.url === recipeUrl);
+    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const index = favorites.findIndex(f => f.url === recipeData.url);
     
     if (index === -1) {
         // Add to favorites
         favorites.push(recipeData);
-        button.querySelector('img').src = './assets/images/hearts1.png';
+        button.querySelector('img').src = './assets/images/hearts2.png';
     } else {
         // Remove from favorites
         favorites.splice(index, 1);
-        button.querySelector('img').src = './assets/images/hearts2.png';
+        button.querySelector('img').src = './assets/images/5.png';
     }
     
     localStorage.setItem('favorites', JSON.stringify(favorites));
